@@ -1,11 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Slangfield Landscape Services - Professional fencing, borehole drilling, machinery rental, and site analysis.">
-    <meta name="keywords" content="landscaping, fencing, borehole, machinery rental, site analysis, Botswana">
-    <title>Slangfield - Professional Landscape Services</title>
+    <meta name="description" content="About Slangfield Landscape Services - Our story, mission, vision, and team.">
+    <meta name="keywords" content="about Slangfield, landscape company, team, mission">
+    <title>About Us - Slangfield Landscape Services</title>
+    
+    
 </head>
 <body>
     <!-- Bootstrap Navbar -->
@@ -21,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="services.html" role="button" data-bs-toggle="dropdown">
@@ -37,7 +39,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
+                        <a class="nav-link active" href="about.html">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Contact</a>
@@ -47,115 +49,96 @@
         </div>
     </nav>
 
-    <!-- Hero Section using Bootstrap -->
-    <section class="hero-section bg-success text-white py-5">
+    <!-- Page Title Section -->
+    <section class="bg-success text-white py-5">
+        <div class="container text-center">
+            <h1 class="display-4">About Us</h1>
+            <p class="lead">Learn more about Slangfield Landscape Services</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-5">
         <div class="container">
-            <div class="row align-items-center min-vh-50">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="display-4 fw-bold">Professional Landscape Services</h1>
-                    <p class="lead">Fencing • Borehole Drilling • Machinery Rental • Site Analysis</p>
-                    <div class="d-flex gap-3 justify-content-center mt-4">
-                        <a href="services.html" class="btn btn-light btn-lg">Our Services</a>
-                        <a href="contact.html" class="btn btn-outline-light btn-lg">Get Quote</a>
+            <div class="row align-items-center g-5">
+                <div class="col-md-6">
+                    <img src="images/about-team.png" alt="Slangfield Team" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-md-6">
+                    <h2>Our Story</h2>
+                    <p class="lead">Building Botswana's landscape, one project at a time.</p>
+                    <p>Slangfield Landscape Services was founded with a simple mission: to provide reliable, professional, and affordable land development services to farms, plots, and commercial properties across Botswana.</p>
+                    <p>With over 10 years of experience in the industry, we have built a reputation for quality workmanship and exceptional customer service. Our team of skilled professionals is dedicated to delivering results that exceed expectations.</p>
+                    <p>From fencing installation to borehole drilling, we have successfully completed hundreds of projects, helping our clients transform their land and achieve their goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 shadow mission-card">
+                        <div class="card-body text-center p-5">
+                            <div class="text-success display-3 mb-3"><i class="bi bi-bullseye"></i></div>
+                            <h3 class="text-success">Our Mission</h3>
+                            <p class="mb-0">To provide high-quality, reliable, and affordable landscape services that meet the unique needs of each client. We are committed to excellence in every project, big or small.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 shadow vision-card">
+                        <div class="card-body text-center p-5">
+                            <div class="text-warning display-3 mb-3"><i class="bi bi-eye"></i></div>
+                            <h3 class="text-warning">Our Vision</h3>
+                            <p class="mb-0">To be the leading landscape services company in Botswana, known for our professionalism, innovation, and commitment to customer satisfaction.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Quick Links using Bootstrap Cards -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">What We Do</h2>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <a href="services.html#fencing" class="text-decoration-none">
-                        <div class="card h-100 service-card text-center">
-                            <div class="card-body">
-                                <i class="bi bi-fence display-4 text-success"></i>
-                                <h5 class="card-title mt-3">Fencing</h5>
-                                <p class="card-text text-muted">Farm & plot fencing</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="services.html#borehole" class="text-decoration-none">
-                        <div class="card h-100 service-card text-center">
-                            <div class="card-body">
-                                <i class="bi bi-droplet-fill display-4 text-primary"></i>
-                                <h5 class="card-title mt-3">Borehole</h5>
-                                <p class="card-text text-muted">Water drilling services</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="services.html#machinery" class="text-decoration-none">
-                        <div class="card h-100 service-card text-center">
-                            <div class="card-body">
-                                <i class="bi bi-truck display-4 text-warning"></i>
-                                <h5 class="card-title mt-3">Machinery</h5>
-                                <p class="card-text text-muted">Equipment rental</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <a href="services.html#analysis" class="text-decoration-none">
-                        <div class="card h-100 service-card text-center">
-                            <div class="card-body">
-                                <i class="bi bi-clipboard-data display-4 text-info"></i>
-                                <h5 class="card-title mt-3">Analysis</h5>
-                                <p class="card-text text-muted">Site assessment</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="text-center mt-4">
-                <a href="services.html" class="btn btn-success">View All Services</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section using Bootstrap -->
-    <section class="bg-light py-5">
+    <!-- Statistics Section -->
+    <section class="py-5 bg-dark text-white">
         <div class="container">
             <div class="row text-center g-4">
                 <div class="col-6 col-md-3">
                     <div class="p-3">
                         <h2 class="display-5 fw-bold text-success">10+</h2>
-                        <p class="text-muted mb-0">Years Experience</p>
+                        <p class="mb-0">Years Experience</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="p-3">
                         <h2 class="display-5 fw-bold text-success">500+</h2>
-                        <p class="text-muted mb-0">Projects Done</p>
+                        <p class="mb-0">Projects Completed</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="p-3">
                         <h2 class="display-5 fw-bold text-success">50+</h2>
-                        <p class="text-muted mb-0">Happy Clients</p>
+                        <p class="mb-0">Happy Clients</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="p-3">
                         <h2 class="display-5 fw-bold text-success">100%</h2>
-                        <p class="text-muted mb-0">Satisfaction</p>
+                        <p class="mb-0">Satisfaction</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section using Bootstrap -->
+  
+    <!-- CTA Section -->
     <section class="bg-success text-white py-5">
         <div class="container text-center">
-            <h2 class="mb-3">Ready to Start Your Project?</h2>
-            <p class="lead mb-4">Contact us for a free consultation.</p>
+            <h2 class="mb-3">Ready to Work With Us?</h2>
+            <p class="lead mb-4">Contact us today to discuss your project needs.</p>
             <a href="contact.html" class="btn btn-light btn-lg">Contact Us</a>
         </div>
     </section>
@@ -168,7 +151,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-brand">
                         <img src="images/logo.png" alt="Slangfield Logo" class="footer-logo">
-                        <h4>Slangfield</h4>
+                        <h4>SLangfield</h4>
                         <p class="footer-desc">Professional landscape services for farms, plots, and construction sites across Botswana.</p>
                     </div>
                 </div>
@@ -210,5 +193,5 @@
         </div>
     </footer>
 
-   
+  
 </html>
