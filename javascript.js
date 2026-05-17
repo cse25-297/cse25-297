@@ -326,7 +326,10 @@ function closePopup() {
             // Get form fields
             const name = document.getElementById('name');
             const email = document.getElementById('email');
+            const phoneNumber = document.getElementById('phone');
+            const service = document.getElementById('service');
             const message = document.getElementById('message');
+            
             
             let isValid = true;
             
@@ -342,6 +345,21 @@ function closePopup() {
                 isValid = false;
             }
             
+            // Validate phone number
+            if (phoneNumber && phoneNumber.value.trim() === '') {
+                showError(phoneNumber, 'Please enter your phone number');
+                isValid = false;
+            } else if (phoneNumber && !/^\+?[\d\s\-()]{7,}$/.test(phoneNumber.value.trim())) {
+                showError(phoneNumber, 'Please enter a valid phone number');
+                isValid = false;
+            }
+            
+            //validate service selection
+            if (service && service.value === '') {
+                showError(service, 'Please select a service');
+                isValid = false;
+            }
+
             // Validate email
             if (email && !isValidEmail(email.value)) {
                 showError(email, 'Please enter a valid email address');
