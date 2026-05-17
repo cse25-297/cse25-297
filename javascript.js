@@ -3,14 +3,169 @@
  * Provides interactivity for:
  * - Bootstrap components (navbar toggler, dropdowns)
  * - Smooth scrolling with offset
- * - Animated statistics counters
- * - Contact form submission handler
- * - Gallery image lightbox
- * - Loading missing dependencies (Bootstrap JS, Bootstrap Icons)
  */
 
 (function() {
     'use strict';
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all components
+    initContactForm();
+    initPopupStyles();
+});
+
+/**
+ * Initialize Popup Styles
+ */
+function initPopupStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Popup Overlay */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Popup Box */
+        .popup-box {
+            background-color: #fff;
+            padding: 40px 50px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .popup-overlay.active .popup-box {
+            transform: scale(1);
+        }
+        
+        /* Popup Icon */
+        .popup-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #198754;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .popup-icon i {
+            font-size: 40px;
+            color: #fff;
+        }
+        
+        /* Popup Content */
+        .popup-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 10px;
+        }
+        
+        .popup-message {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        /* Popup Button */
+        .popup-btn {
+            background-color: #198754;
+            color: #fff;
+            border: none;
+            padding: 12px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-btn:hover {
+            background-color: #146c43;
+            transform: translateY(-2px);
+        }
+        
+        /* Error Message */
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+/**
+ * Show Popup Message
+ */
+function showPopup(title, message) {
+    // Remove existing popup if any
+    const existingPopup = document.querySelector('.popup-overlay');
+    if (existingPopup) {
+        existingPopup.remove();
+    }
+    
+    // Create popup HTML
+    const popupHTML = `
+        <div class="popup-overlay">
+            <div class="popup-box">
+                <div class="popup-icon">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                <h3 class="popup-title">${title}</h3>
+                <p class="popup-message">${message}</p>
+                <button class="popup-btn" onclick="closePopup()">OK</button>
+            </div>
+        </div>
+    `;
+    
+    // Add popup to body
+    document.body.insertAdjacentHTML('beforeend', popupHTML);
+    
+    // Show popup with animation
+    setTimeout(() => {
+        document.querySelector('.popup-overlay').classList.add('active');
+    }, 10);
+}
+
+/**
+ * Close Popup
+ */
+function closePopup() {
+    const popup = document.querySelector('.popup-overlay');
+    if (popup) {
+        popup.classList.remove('active');
+        setTimeout(() => {
+            popup.remove();
+        }, 300);
+    }
+}
+
+
+
+
 
     // ==================================================
     // 1. LOAD MISSING DEPENDENCIES
@@ -159,144 +314,106 @@
     // ==================================================
     // 4. CONTACT FORM HANDLER (with validation & fetch simulation)
     // ==================================================
-    function initContactForm() {
-        const contactForm = document.getElementById('contact-form');
-        if (!contactForm) return;
-        
-        // Create toast container if not present
-        let toastContainer = document.querySelector('.toast-container');
-        if (!toastContainer) {
-            toastContainer = document.createElement('div');
-            toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
-            toastContainer.style.zIndex = '1100';
-            document.body.appendChild(toastContainer);
-        }
-        
-        function showToast(message, type = 'success') {
-            const toastId = 'liveToast-' + Date.now();
-            const bgClass = type === 'success' ? 'bg-success' : 'bg-danger';
-            const toastHtml = `
-                <div id="${toastId}" class="toast align-items-center text-white ${bgClass} border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
-                    <div class="d-flex">
-                        <div class="toast-body">
-                            ${message}
-                        </div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-                    </div>
-                </div>
-            `;
-            toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-            const toastElement = document.getElementById(toastId);
-            
-            // Wait for Bootstrap if available, else fallback
-            if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
-                const toast = new bootstrap.Toast(toastElement, { autohide: true, delay: 5000 });
-                toast.show();
-            } else {
-                // Fallback
-                toastElement.classList.add('show');
-                setTimeout(() => {
-                    toastElement.remove();
-                }, 5000);
-            }
-            
-            // Auto remove after hidden
-            toastElement.addEventListener('hidden.bs.toast', () => toastElement.remove());
-        }
-        
-        contactForm.addEventListener('submit', async (e) => {
+   function initContactForm() {
+    const form = document.getElementById('contact-form');
+    
+    if (form) {
+        // Prevent default form submission
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             
             // Get form fields
             const name = document.getElementById('name');
             const email = document.getElementById('email');
-            const phone = document.getElementById('phone');
-            const service = document.getElementById('service');
             const message = document.getElementById('message');
             
-            // Simple client validation
             let isValid = true;
-            let errorMsg = '';
             
-            if (!name.value.trim()) {
+            // Clear previous errors
+            clearAllErrors();
+            
+            // Validate name
+            if (name && name.value.trim() === '') {
+                showError(name, 'Please enter your name');
                 isValid = false;
-                errorMsg = 'Please enter your full name.';
-                name.classList.add('is-invalid');
-            } else {
-                name.classList.remove('is-invalid');
-            }
-            
-            if (!email.value.trim() || !/^\S+@\S+\.\S+$/.test(email.value)) {
+            } else if (name && name.value.trim().length < 2) {
+                showError(name, 'Name must be at least 2 characters');
                 isValid = false;
-                errorMsg = 'Please enter a valid email address.';
-                email.classList.add('is-invalid');
-            } else {
-                email.classList.remove('is-invalid');
             }
             
-            if (!message.value.trim()) {
+            // Validate email
+            if (email && !isValidEmail(email.value)) {
+                showError(email, 'Please enter a valid email address');
                 isValid = false;
-                errorMsg = 'Please enter your message.';
-                message.classList.add('is-invalid');
-            } else {
-                message.classList.remove('is-invalid');
             }
             
-            if (!isValid) {
-                showToast(errorMsg, 'error');
-                return;
+            // Validate message
+            if (message && message.value.trim() === '') {
+                showError(message, 'Please enter your message');
+                isValid = false;
+            } else if (message && message.value.trim().length < 10) {
+                showError(message, 'Message must be at least 10 characters');
+                isValid = false;
             }
             
-            // Prepare form data
-            const formData = {
-                name: name.value.trim(),
-                email: email.value.trim(),
-                phone: phone.value.trim(),
-                service: service ? service.value : '',
-                message: message.value.trim(),
-                timestamp: new Date().toISOString()
-            };
-            
-            // Simulate sending to backend (replace with actual endpoint later)
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Sending...';
-            
-            try {
-                // Simulate network request
-                await new Promise(resolve => setTimeout(resolve, 1200));
-                
-                // Here you would normally send to your server:
-                // const response = await fetch('/api/contact', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(formData)
-                // });
-                
-                console.log('Form submitted (demo):', formData);
-                
-                // Success message
-                showToast(`Thanks ${formData.name}! We'll get back to you within 24 hours.`, 'success');
-                contactForm.reset();
-                
-            } catch (error) {
-                console.error('Form submission error:', error);
-                showToast('Oops! Something went wrong. Please try again later.', 'error');
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalButtonText;
+            // If valid, show popup
+            if (isValid) {
+                showPopup('Message Sent!', 'Thank you for contacting us. We will get back to you within 24 hours.');
+                form.reset();
             }
-        });
-        
-        // Remove invalid styling on input
-        const inputs = contactForm.querySelectorAll('input, textarea, select');
-        inputs.forEach(input => {
-            input.addEventListener('input', function() {
-                this.classList.remove('is-invalid');
-            });
+            
+            return false;
         });
     }
+}
+
+/**
+ * Clear All Errors
+ */
+function clearAllErrors() {
+    const errors = document.querySelectorAll('.error-message');
+    errors.forEach(error => error.remove());
+    
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => input.classList.remove('is-invalid'));
+}
+
+/**
+ * Validate Email
+ */
+function isValidEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+/**
+ * Show Error Message
+ */
+function showError(input, message) {
+    input.classList.add('is-invalid');
+    
+    // Remove existing error message
+    const existingError = input.parentNode.querySelector('.error-message');
+    if (existingError) {
+        existingError.remove();
+    }
+    
+    // Add error message
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    input.parentNode.appendChild(errorDiv);
+}
+
+// Close popup when clicking outside the box
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('popup-overlay')) {
+        closePopup();
+    }
+});
+
+        
 
     // ==================================================
     // 5. GALLERY LIGHTBOX (for services page)
